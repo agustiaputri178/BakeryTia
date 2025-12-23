@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Bakery Tia</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-bread-slice"></i>
+                    <span>Bakery Tia</span>
+                </a>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="products.html">Produk</a></li>
+                    <li><a href="about.html">Tentang</a></li>
+                    <li><a href="contact.html">Kontak</a></li>
+                    <li class="cart-icon">
+                        <a href="cart.html">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Checkout Section -->
+    <section class="checkout-section">
+        <div class="container">
+            <h1>Checkout</h1>
+            
+            <div class="checkout-container">
+                <div class="checkout-form">
+                    <form id="checkoutForm">
+                        <!-- Customer Information -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-user"></i> Informasi Pelanggan</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="name">Nama Lengkap *</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email *</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Nomor Telepon *</label>
+                                    <input type="tel" id="phone" name="phone" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Shipping Address -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-map-marker-alt"></i> Alamat Pengiriman</h3>
+                            <div class="form-group">
+                                <label for="address">Alamat Lengkap *</label>
+                                <textarea id="address" name="address" rows="3" required></textarea>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="city">Kota *</label>
+                                    <input type="text" id="city" name="city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="postalCode">Kode Pos *</label>
+                                    <input type="text" id="postalCode" name="postalCode" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Shipping Method -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-shipping-fast"></i> Metode Pengiriman</h3>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="shipping" value="regular" checked>
+                                    <div class="radio-content">
+                                        <span class="radio-title">Reguler (2-3 hari)</span>
+                                        <span class="radio-price">Rp 10.000</span>
+                                    </div>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="shipping" value="express">
+                                    <div class="radio-content">
+                                        <span class="radio-title">Express (1 hari)</span>
+                                        <span class="radio-price">Rp 25.000</span>
+                                    </div>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="shipping" value="same-day">
+                                    <div class="radio-content">
+                                        <span class="radio-title">Same Day (6 jam)</span>
+                                        <span class="radio-price">Rp 40.000</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Payment Method -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-credit-card"></i> Metode Pembayaran</h3>
+                            <div class="payment-methods-grid">
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="transfer" checked>
+                                    <div class="payment-content">
+                                        <i class="fas fa-university"></i>
+                                        <span>Transfer Bank</span>
+                                    </div>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="ewallet">
+                                    <div class="payment-content">
+                                        <i class="fas fa-wallet"></i>
+                                        <span>E-Wallet</span>
+                                    </div>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="qris">
+                                    <div class="payment-content">
+                                        <i class="fas fa-qrcode"></i>
+                                        <span>QRIS</span>
+                                    </div>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="payment" value="cod">
+                                    <div class="payment-content">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                        <span>COD</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Order Notes -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-sticky-note"></i> Catatan Pesanan (Opsional)</h3>
+                            <div class="form-group">
+                                <textarea id="notes" name="notes" rows="3" placeholder="Contoh: Jangan pakai plastik, tiba sebelum jam 10 pagi, dll."></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <div class="summary-card">
+                        <h3>Ringkasan Pesanan</h3>
+                        <div class="order-items" id="order-items">
+                            <!-- Order items will be loaded by JavaScript -->
+                        </div>
+                        <div class="summary-totals">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="order-subtotal">Rp 0</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Ongkos Kirim</span>
+                                <span id="order-shipping">Rp 0</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total</span>
+                                <span id="order-total">Rp 0</span>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-primary" onclick="processOrder()" style="width: 100%;">
+                            <i class="fas fa-lock"></i> Bayar Sekarang
+                        </button>
+                        <p class="terms-notice">
+                            Dengan melanjutkan, Anda menyetujui <a href="#">Syarat & Ketentuan</a> kami
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Bakery Tia</h3>
+                    <p>Menyediakan roti dan kue segar setiap hari sejak 2010.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Kontak</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> Jl. Raya Bakti No. 123, Jakarta</li>
+                        <li><i class="fas fa-phone"></i> (021) 555-1234</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Bakery Tia. Semua hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/checkout.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfirmasi Pesanan - Bakery Tia</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .confirmation-section {
+            padding: 80px 0;
+            text-align: center;
+            min-height: 70vh;
+        }
+        
+        .confirmation-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: var(--shadow);
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: var(--success-color);
+            margin-bottom: 20px;
+        }
+        
+        .order-details {
+            background-color: var(--light-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .detail-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+        
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+            transform: translateY(-3px);
+        }
+        
+        .order-items-list {
+            margin-top: 15px;
+        }
+        
+        .order-item-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-bread-slice"></i>
+                    <span>Bakery Tia</span>
+                </a>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="products.html">Produk</a></li>
+                    <li><a href="about.html">Tentang</a></li>
+                    <li><a href="contact.html">Kontak</a></li>
+                    <li class="cart-icon">
+                        <a href="cart.html">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Confirmation Section -->
+    <section class="confirmation-section">
+        <div class="container">
+            <div class="confirmation-card">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h1>Pesanan Berhasil!</h1>
+                <p>Terima kasih telah berbelanja di Bakery Tia. Pesanan Anda sedang diproses.</p>
+                
+                <div class="order-details" id="order-details">
+                    <!-- Order details will be loaded by JavaScript -->
+                </div>
+                
+                <p>Kami telah mengirimkan detail pesanan ke email Anda. Silakan cek inbox atau folder spam.</p>
+                
+                <div class="button-group">
+                    <a href="products.html" class="btn-primary">Lanjutkan Belanja</a>
+                    <a href="#" class="whatsapp-btn" id="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> Konfirmasi via WhatsApp
+                    </a>
+                </div>
+                
+                <p class="contact-info" style="margin-top: 30px;">
+                    <small>Butuh bantuan? Hubungi kami di <strong>(021) 555-1234</strong> atau <strong>info@bakerytia.com</strong></small>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Bakery Tia</h3>
+                    <p>Menyediakan roti dan kue segar setiap hari sejak 2010.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Kontak</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> Jl. Raya Bakti No. 123, Jakarta</li>
+                        <li><i class="fas fa-phone"></i> (021) 555-1234</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Bakery Tia. Semua hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Get order number from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderNumber = urlParams.get('order');
+        
+        // Load order details
+        document.addEventListener('DOMContentLoaded', function() {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const order = orders.find(o => o.orderNumber === orderNumber);
+            
+            const orderDetails = document.getElementById('order-details');
+            const whatsappBtn = document.getElementById('whatsapp-btn');
+            
+            if (order && orderDetails) {
+                // Display order details
+                orderDetails.innerHTML = `
+                    <div class="detail-row">
+                        <strong>Nomor Pesanan:</strong>
+                        <span>${order.orderNumber}</span>
+                    </div>
+                    <div class="detail-row">
+                        <strong>Tanggal Pesanan:</strong>
+                        <span>${order.orderDate}</span>
+                    </div>
+                    <div class="detail-row">
+                        <strong>Status:</strong>
+                        <span style="color: var(--success-color);">Menunggu Pembayaran</span>
+                    </div>
+                    <div class="detail-row">
+                        <strong>Metode Pembayaran:</strong>
+                        <span>${getPaymentMethodName(order.payment)}</span>
+                    </div>
+                    <div class="order-items-list">
+                        ${order.items.map(item => `
+                            <div class="order-item-row">
+                                <span>${item.name} × ${item.quantity}</span>
+                                <span>Rp ${(item.price * item.quantity).toLocaleString('id-ID')}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="detail-row" style="margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--dark-color);">
+                        <strong>Total Pembayaran:</strong>
+                        <span style="font-size: 1.2rem; color: var(--primary-color);">Rp ${order.total.toLocaleString('id-ID')}</span>
+                    </div>
+                `;
+                
+                // Update WhatsApp button
+                if (whatsappBtn) {
+                    const message = `Halo Bakery Tia, saya ingin konfirmasi pesanan ${order.orderNumber} dengan total Rp ${order.total.toLocaleString('id-ID')}`;
+                    const whatsappUrl = `https://wa.me/6281234567890?text=${encodeURIComponent(message)}`;
+                    whatsappBtn.href = whatsappUrl;
+                }
+            } else {
+                orderDetails.innerHTML = `<p>Detail pesanan tidak ditemukan.</p>`;
+            }
+            
+            // Update cart count
+            updateCartCount();
+            
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (hamburger) {
+                hamburger.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+            }
+        });
+        
+        function getPaymentMethodName(method) {
+            switch(method) {
+                case 'transfer': return 'Transfer Bank';
+                case 'ewallet': return 'E-Wallet';
+                case 'qris': return 'QRIS';
+                case 'cod': return 'COD (Cash on Delivery)';
+                default: return method;
+            }
+        }
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html>

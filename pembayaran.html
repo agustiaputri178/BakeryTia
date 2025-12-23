@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pembayaran - Bakery Tia</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f8f5f0;color:#5a3921;padding:20px}
+.container{max-width:1000px;margin:auto;background:#fff;border-radius:8px;padding:30px;box-shadow:0 0 15px rgba(0,0,0,.1)}
+header{text-align:center;margin-bottom:30px}
+.title{font-size:32px;color:#d4a762;font-weight:bold}
+.back-btn{color:#d4a762;text-decoration:none;font-weight:bold;display:inline-block;margin-bottom:20px}
+.main-title{text-align:center;font-size:28px;color:#8b5a2b;margin-bottom:30px}
+
+.payment-layout{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+@media(max-width:768px){.payment-layout{grid-template-columns:1fr}}
+
+.section-title{font-size:20px;color:#8b5a2b;margin-bottom:15px;border-bottom:1px solid #e8d4b9;padding-bottom:8px}
+
+.customer-info,.payment-method,.terms-section{background:#f9f5f0;padding:20px;border-radius:8px}
+.info-group{margin-bottom:15px}
+.info-label{font-weight:bold;margin-bottom:5px}
+
+.info-value{
+width:100%;
+padding:10px;
+border-radius:5px;
+border:none;
+border-left:3px solid #d4a762;
+outline:none
+}
+
+.order-item{display:flex;justify-content:space-between;border-bottom:1px solid #e8d4b9;padding:10px 0}
+.order-item:last-child{border-bottom:none}
+
+.summary-total{display:flex;justify-content:space-between;padding:8px 0}
+.summary-total.grand-total{font-weight:bold;font-size:18px;border-top:1px solid #e8d4b9;margin-top:10px;padding-top:15px}
+
+.submit-btn{width:100%;padding:18px;border:none;border-radius:8px;background:#d4a762;color:#fff;font-size:18px;font-weight:bold;cursor:pointer;margin-top:20px}
+.submit-btn:hover{background:#c0954d}
+
+footer{text-align:center;margin-top:40px;border-top:2px solid #e8d4b9;padding-top:20px;font-size:14px;color:#8b5a2b}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+<div class="title">Bakery Tia</div>
+</header>
+
+<a href="cart.html" class="back-btn">Kembali ke Keranjang</a>
+<h1 class="main-title">Pembayaran</h1>
+
+<div class="payment-layout">
+
+<!-- LEFT -->
+<div>
+
+<div class="section">
+<h2 class="section-title">Informasi Pembayaran</h2>
+<div class="customer-info">
+
+<div class="info-group">
+<div class="info-label">Nama Lengkap</div>
+<input type="text" id="customerName" class="info-value" placeholder="Masukkan nama lengkap">
+</div>
+
+<div class="info-group">
+<div class="info-label">Email</div>
+<input type="email" id="customerEmail" class="info-value" placeholder="Masukkan email">
+</div>
+
+<div class="info-group">
+<div class="info-label">Nomor Telepon</div>
+<input type="tel" id="customerPhone" class="info-value" placeholder="Masukkan nomor telepon">
+</div>
+
+</div>
+</div>
+
+<div class="section">
+<h2 class="section-title">Alamat Pengiriman</h2>
+<div class="customer-info">
+<textarea id="customerAddress" class="info-value" rows="3" placeholder="Masukkan alamat lengkap"></textarea>
+</div>
+</div>
+
+<div class="payment-method">
+<h2 class="section-title">Metode Pembayaran</h2>
+<label><input type="radio" name="payment" value="Transfer Bank" checked> Transfer Bank</label><br><br>
+<label><input type="radio" name="payment" value="E-Wallet"> E-Wallet</label><br><br>
+<label><input type="radio" name="payment" value="COD"> COD</label>
+</div>
+
+</div>
+
+<!-- RIGHT -->
+<div>
+<h2 class="section-title">Ringkasan Pesanan</h2>
+<div id="order-summary"></div>
+
+<div class="terms-section">
+<label><input type="checkbox" checked> Saya setuju dengan pesanan</label><br><br>
+<label><input type="checkbox" checked> Saya setuju metode pembayaran</label><br><br>
+<label><input type="checkbox" checked> Saya setuju syarat & ketentuan</label>
+</div>
+
+<button class="submit-btn" onclick="processPayment()">Konfirmasi & Bayar</button>
+</div>
+
+</div>
+
+<footer>&copy; 2023 Bakery Tia</footer>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", renderOrderSummary);
+
+function renderOrderSummary(){
+    const box=document.getElementById("order-summary");
+    const cart=JSON.parse(localStorage.getItem("cart"))||[];
+    let subtotal=0;
+
+    if(cart.length===0){
+        box.innerHTML="<p>Keranjang kosong</p>";
+        return;
+    }
+
+    box.innerHTML=cart.map(item=>{
+        const total=item.price*item.qty;
+        subtotal+=total;
+        return`
+        <div class="order-item">
+            <div>
+                <strong>${item.name}</strong><br>
+                Rp ${item.price.toLocaleString("id-ID")}<br>
+                Jumlah: ${item.qty}
+            </div>
+            <strong>Rp ${total.toLocaleString("id-ID")}</strong>
+        </div>`;
+    }).join("");
+
+    const ongkir=10000;
+    box.innerHTML+=`
+    <div class="summary-total"><span>Subtotal</span><span>Rp ${subtotal.toLocaleString("id-ID")}</span></div>
+    <div class="summary-total"><span>Ongkir</span><span>Rp ${ongkir.toLocaleString("id-ID")}</span></div>
+    <div class="summary-total grand-total"><span>Total</span><span>Rp ${(subtotal+ongkir).toLocaleString("id-ID")}</span></div>`;
+}
+
+function processPayment(){
+    const data={
+        name:customerName.value.trim(),
+        email:customerEmail.value.trim(),
+        phone:customerPhone.value.trim(),
+        address:customerAddress.value.trim(),
+        method:document.querySelector('input[name="payment"]:checked').value
+    };
+
+    if(!data.name||!data.email||!data.phone||!data.address){
+        alert("Lengkapi data pembayaran");
+        return;
+    }
+
+    localStorage.setItem("paymentData",JSON.stringify(data));
+    localStorage.removeItem("cart");
+    window.location.href="bukti_pembayaran.html";
+}
+</script>
+
+</body>
+</html>

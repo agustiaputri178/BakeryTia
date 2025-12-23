@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Produk</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+.product-detail {
+    padding: 60px 0;
+}
+.detail-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+.detail-img img {
+    width: 100%;
+    border-radius: 15px;
+}
+.detail-info h1 {
+    font-size: 2.2rem;
+}
+.price {
+    font-size: 1.8rem;
+    color: #f4b400;
+    font-weight: bold;
+    margin: 15px 0;
+}
+.qty {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+.qty button {
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: #f4b400;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 6px;
+}
+.actions {
+    display: flex;
+    gap: 15px;
+}
+.actions button {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.add-cart {
+    background: #f4b400;
+    color: #fff;
+}
+.buy {
+    background: #6b4226;
+    color: #fff;
+}
+
+@media (max-width:768px){
+    .detail-box{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+<div class="container">
+<nav class="navbar">
+<a href="index.html" class="logo">
+<i class="fas fa-bread-slice"></i> Bakery Tia
+</a>
+<ul class="nav-menu">
+<li><a href="index.html">Beranda</a></li>
+<li><a href="products.html">Produk</a></li>
+<li class="cart-icon">
+<a href="cart.html">
+<i class="fas fa-shopping-cart"></i>
+<span class="cart-count">0</span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+
+<!-- DETAIL -->
+<section class="product-detail">
+<div class="container">
+<div id="detail"></div>
+</div>
+</section>
+
+<footer>
+<p style="text-align:center;">© 2025 Bakery Tia</p>
+</footer>
+
+<!-- ⚠️ SCRIPT WAJIB URUT -->
+<script src="js/products-page.js"></script>
+
+<script>
+    // script detail produk (yang addToCart, qty, dll)
+</script>
+
+<script src="js/main.js"></script>
+</script>
+<script src="js/products.js"></script>
+<script src="js/products-detail.js"></script>
+
+<script>
+let qty = 1;
+
+document.addEventListener("DOMContentLoaded", () => {
+    updateCartCount();
+
+    const id = parseInt(new URLSearchParams(location.search).get("id"));
+    const product = products.find(p => p.id === id);
+
+    if (!product) {
+        location.href = "products.html";
+        return;
+    }
+
+    document.getElementById("detail").innerHTML = `
+        <div class="detail-box">
+            <div class="detail-img">
+                <img src="images/products/${product.image}">
+            </div>
+
+            <div class="detail-info">
+                <h1>${product.name}</h1>
+                <div class="price">Rp ${product.price.toLocaleString("id-ID")}</div>
+                <p>Produk bakery segar, dibuat setiap hari.</p>
+
+                <div class="qty">
+                    <button onclick="changeQty(-1)">-</button>
+                    <span id="qty">${qty}</span>
+                    <button onclick="changeQty(1)">+</button>
+                </div>
+
+                <div class="actions">
+                    <button class="add-cart" onclick="addToCart(${product.id})">
+                        <i class="fas fa-cart-plus"></i> Keranjang
+                    </button>
+                    <button class="buy" onclick="buyNow(${product.id})">
+                        Beli Sekarang
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+});
+
+function changeQty(val){
+    qty += val;
+    if(qty < 1) qty = 1;
+    document.getElementById("qty").textContent = qty;
+}
+
+function addToCart(id){
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const product = products.find(p => p.id === id);
+
+    const item = cart.find(i => i.id === id);
+
+    if(item){
+        item.qty += qty;   // ✅ PAKAI qty
+    } else {
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            qty: qty          // ✅ PAKAI qty
+        });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // 🔥 update icon TANPA refresh
+    updateCartCount();
+    window.dispatchEvent(new Event("cartUpdated"));
+
+    alert("Masuk keranjang");
+}
+
+function buyNow(id){
+    addToCart(id);
+    location.href = "cart.html";
+}
+</script>
+<script src="js/products.js"></script>
+<script src="js/products-detail.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!-- File: about.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Kami - Bakery Tia</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .about-section {
+            padding: 80px 0;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .about-text h2 {
+            margin-bottom: 20px;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .value-card {
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .value-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-bread-slice"></i>
+                    <span>Bakery Tia</span>
+                </a>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="products.html">Produk</a></li>
+                    <li><a href="about.html" class="active">Tentang</a></li>
+                    <li><a href="contact.html">Kontak</a></li>
+                    <li class="cart-icon">
+                        <a href="cart.html">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bakery Tia">
+                </div>
+                <div class="about-text">
+                    <h2>Tentang Bakery Tia</h2>
+                    <p>Bakery Tia didirikan pada tahun 2025 dengan misi sederhana: menyediakan roti dan kue segar berkualitas tinggi untuk keluarga Indonesia.</p>
+                    <p>Kami memulai dari dapur rumah kecil dan sekarang telah berkembang menjadi toko roti yang dikenal dengan kualitas dan konsistensinya.</p>
+                    <p>Setiap produk kami dibuat dengan bahan-bahan pilihan, tanpa pengawet, dan dipanggang fresh setiap hari.</p>
+                </div>
+            </div>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <i class="fas fa-leaf"></i>
+                    <h3>Bahan Organik</h3>
+                    <p>Hanya menggunakan bahan-bahan organik berkualitas tinggi</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-heart"></i>
+                    <h3>Dibuat dengan Cinta</h3>
+                    <p>Setiap produk dibuat dengan perhatian dan dedikasi</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-award"></i>
+                    <h3>Kualitas Terjamin</h3>
+                    <p>Standar kualitas tertinggi dalam setiap produksi</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INCLUDE SCRIPT -->
+    <script src="js/main.js"></script>
+    
+</body>
+</html>

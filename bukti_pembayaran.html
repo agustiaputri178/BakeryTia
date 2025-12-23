@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bukti Pembayaran</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f8f9fa;padding:20px}
+.container{max-width:800px;margin:auto;background:#fff;border-radius:10px;padding:30px;box-shadow:0 2px 15px rgba(0,0,0,.05)}
+
+.header{text-align:center;border-bottom:2px solid #3498db;padding-bottom:20px;margin-bottom:30px}
+.header h1{font-size:28px;color:#2c3e50}
+.status-badge{background:#27ae60;color:#fff;padding:5px 15px;border-radius:20px;font-size:13px;font-weight:bold}
+
+.section{margin-bottom:25px}
+.section-title{font-size:18px;color:#2c3e50;margin-bottom:10px;border-bottom:1px solid #eee;padding-bottom:6px}
+
+.info-value,.address-box{background:#f9f9f9;padding:10px;border-left:3px solid #3498db;border-radius:5px}
+
+.payment-method{display:inline-block;padding:10px 20px;background:#e3f2fd;border:1px solid #3498db;border-radius:5px;font-weight:bold}
+
+.detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
+.detail-item{background:#f9f9f9;padding:15px;border-radius:5px}
+
+.button-group{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.btn{padding:14px 28px;border:none;border-radius:5px;font-size:16px;font-weight:bold;cursor:pointer}
+.btn-primary{background:#3498db;color:#fff}
+.btn-secondary{background:#eee}
+
+.footer{text-align:center;font-size:14px;color:#888;margin-top:30px;border-top:1px solid #eee;padding-top:20px}
+
+@media print{
+.button-group{display:none}
+body{background:#fff;padding:0}
+.container{box-shadow:none}
+}
+</style>
+</head>
+
+<body>
+<div class="container" id="invoice">
+
+<div class="header">
+<h1>Bukti Pembayaran</h1>
+<p>ID Transaksi: <strong id="trx"></strong> <span class="status-badge">LUNAS</span></p>
+</div>
+
+<div class="section">
+<h2 class="section-title">Informasi Pembayaran</h2>
+<div class="info-value" id="name"></div><br>
+<div class="info-value" id="email"></div><br>
+<div class="info-value" id="phone"></div>
+</div>
+
+<div class="section">
+<h2 class="section-title">Alamat Pengiriman</h2>
+<div class="address-box" id="address"></div>
+</div>
+
+<div class="section">
+<h2 class="section-title">Metode Pembayaran</h2>
+<div class="payment-method" id="method"></div>
+</div>
+
+<div class="section">
+<h2 class="section-title">Detail Pembayaran</h2>
+<div class="detail-grid">
+<div class="detail-item">
+<strong>Tanggal</strong><br><span id="date"></span>
+</div>
+<div class="detail-item">
+<strong>Waktu</strong><br><span id="time"></span>
+</div>
+<div class="detail-item">
+<strong>Status</strong><br>Lunas
+</div>
+</div>
+</div>
+
+<div class="button-group">
+<button class="btn btn-primary" onclick="downloadPDF()">Download PDF</button>
+<button class="btn btn-secondary" onclick="window.print()">Cetak</button>
+<button class="btn btn-secondary" onclick="window.location.href='pembayaran.html'">Kembali</button>
+</div>
+
+<div class="footer">
+© 2023 Bakery Tia — Bukti pembayaran sah
+</div>
+
+</div>
+
+<script>
+const data = JSON.parse(localStorage.getItem("paymentData"));
+
+if(!data){
+    alert("Data pembayaran tidak ditemukan!");
+    window.location.href="pembayaran.html";
+}
+
+document.getElementById("name").textContent = "Nama: " + data.name;
+document.getElementById("email").textContent = "Email: " + data.email;
+document.getElementById("phone").textContent = "Telepon: " + data.phone;
+document.getElementById("address").textContent = data.address;
+document.getElementById("method").textContent = data.method;
+
+// generate trx + waktu
+const now = new Date();
+document.getElementById("trx").textContent =
+"TRX-" + now.getTime();
+
+document.getElementById("date").textContent =
+now.toLocaleDateString("id-ID");
+
+document.getElementById("time").textContent =
+now.toLocaleTimeString("id-ID");
+
+function downloadPDF(){
+html2canvas(document.getElementById("invoice")).then(canvas=>{
+const img=canvas.toDataURL("image/png");
+const pdf=new jspdf.jsPDF("p","mm","a4");
+const w=pdf.internal.pageSize.getWidth();
+const h=canvas.height*w/canvas.width;
+pdf.addImage(img,"PNG",0,10,w,h);
+pdf.save("Bukti_Pembayaran.pdf");
+});
+}
+</script>
+
+</body>
+</html>

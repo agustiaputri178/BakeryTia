@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petunjuk Upload - Bakery Tia</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #f8b500;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #6a4029;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .step {
+            background-color: #f8f9fa;
+            border-left: 4px solid #f8b500;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background-color: #f8b500;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .warning {
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .tip {
+            background-color: #e8f4fd;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .tip i {
+            color: #3498db;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            background-color: #6a4029;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-back:hover {
+            background-color: #543421;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .tips {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📁 Petunjuk Upload Gambar Produk</h1>
+        
+        <h2>Langkah-langkah Upload Gambar</h2>
+        
+        <div class="step">
+            <div class="step-number">1</div>
+            <strong>Persiapkan Gambar</strong>
+            <p>Siapkan gambar produk dengan format JPG, PNG, atau GIF. Ukuran maksimal 2MB.</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-number">2</div>
+            <strong>Pilih File</strong>
+            <p>Di form tambah produk, klik area upload gambar atau tombol "Choose File".</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-number">3</div>
+            <strong>Upload</strong>
+            <p>Pilih gambar dari komputer Anda, lalu klik "Open". Gambar akan otomatis diupload.</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-number">4</div>
+            <strong>Preview</strong>
+            <p>Setelah upload, preview gambar akan muncul. Pastikan gambar sudah sesuai.</p>
+        </div>
+        
+        <div class="note">
+            <strong>💡 Catatan Penting:</strong>
+            <p>Untuk demo website statis ini, gambar akan disimpan di browser Anda menggunakan localStorage. Di website production sebenarnya, gambar perlu diupload ke server.</p>
+        </div>
+        
+        <h2>Cara Menyimpan Gambar di Folder</h2>
+        
+        <div class="warning">
+            <strong>⚠️ Untuk Website Statis (GitHub Pages):</strong>
+            <p>Karena website ini statis, Anda perlu:</p>
+            <ol>
+                <li>Simpan gambar di folder <code>images/products/</code></li>
+                <li>Format nama file: <code>nama-produk.jpg</code> (gunakan huruf kecil, tanpa spasi)</li>
+                <li>Di form admin, ketik nama file lengkap: <code>nama-produk.jpg</code></li>
+            </ol>
+        </div>
+        
+        <div class="tips">
+            <div class="tip">
+                <i class="fas fa-camera"></i>
+                <p>Gunakan gambar dengan background bersih</p>
+            </div>
+            <div class="tip">
+                <i class="fas fa-sun"></i>
+                <p>Pencahayaan yang baik untuk hasil terbaik</p>
+            </div>
+            <div class="tip">
+                <i class="fas fa-ruler-combined"></i>
+                <p>Ukuran optimal: 800x600 pixels</p>
+            </div>
+            <div class="tip">
+                <i class="fas fa-file-image"></i>
+                <p>Format disarankan: JPG untuk foto, PNG untuk transparan</p>
+            </div>
+        </div>
+        
+        <h2>Struktur Folder yang Disarankan</h2>
+        <pre style="background-color: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto;">
+toko-bakery-tia/
+├── images/
+│   └── products/
+│       ├── croissant.jpg
+│       ├── bread.jpg
+│       ├── cake.jpg
+│       ├── donut.jpg
+│       └── default.jpg
+└── admin-products.html
+        </pre>
+        
+        <h2>Solusi Jika Upload Tidak Berfungsi</h2>
+        <p>Jika fitur upload tidak berfungsi (karena website statis), Anda bisa:</p>
+        <ol>
+            <li>Upload gambar ke hosting gambar gratis seperti Imgur</li>
+            <li>Copy URL gambar tersebut</li>
+            <li>Tempel URL di form admin (kolom gambar)</li>
+            <li>Format: <code>https://i.imgur.com/namafile.jpg</code></li>
+        </ol>
+        
+        <a href="admin-products.html" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Kembali ke Admin Panel
+        </a>
+    </div>
+</body>
+</html>
